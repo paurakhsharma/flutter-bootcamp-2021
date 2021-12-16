@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:hamrocoffee/models/coffee.dart';
 import 'package:hamrocoffee/services/coffee_service.dart';
 
+import 'detail_screen.dart';
+
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
@@ -26,13 +28,13 @@ class _HomeScreenState extends State<HomeScreen> {
               color: const Color(0xff1f3933),
               child: InkWell(
                 onTap: () {
-                  // Navigator.of(context).push(
-                  //   MaterialPageRoute(
-                  //     builder: (context) => DetailScreen(
-                  //       coffee: menu[index],
-                  //     ),
-                  //   ),
-                  // );
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => DetailScreen(
+                        coffee: menu[index],
+                      ),
+                    ),
+                  );
                 },
                 child: Row(
                   children: [
