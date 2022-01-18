@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hamrocoffee/models/coffee.dart';
+import 'package:hamrocoffee/services/user_provider.dart';
+import 'package:provider/src/provider.dart';
 
 class DetailScreen extends StatefulWidget {
   final Coffee coffee;
@@ -14,6 +16,8 @@ class _DetailScreenState extends State<DetailScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final userProvider = context.watch<UserProvider>();
+
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.coffee.name),
@@ -82,19 +86,35 @@ class _DetailScreenState extends State<DetailScreen> {
                 },
               ),
               const SizedBox(height: 24),
-              SizedBox(
-                height: 50,
-                width: 250,
-                child: ElevatedButton(
-                  child: const Text(
-                    'Order',
-                    style: TextStyle(
-                      fontSize: 18,
+              userProvider.currentUser == null
+                  ? SizedBox(
+                      height: 50,
+                      width: 250,
+                      child: ElevatedButton(
+                        child: const Text(
+                          'Sign in with Google',
+                          style: TextStyle(
+                            fontSize: 18,
+                          ),
+                        ),
+                        onPressed: () {
+                          userProvider.signInWithGoogle();
+                        },
+                      ),
+                    )
+                  : SizedBox(
+                      height: 50,
+                      width: 250,
+                      child: ElevatedButton(
+                        child: const Text(
+                          'Order',
+                          style: TextStyle(
+                            fontSize: 18,
+                          ),
+                        ),
+                        onPressed: () {},
+                      ),
                     ),
-                  ),
-                  onPressed: () {},
-                ),
-              ),
             ],
           ),
         ),
