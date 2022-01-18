@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:hamrocoffee/screens/home_screen.dart';
 import 'package:hamrocoffee/services/coffee_provider.dart';
+import 'package:hamrocoffee/services/order_provider.dart';
 import 'package:hamrocoffee/services/user_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -16,6 +17,9 @@ void main() async {
         ),
         ChangeNotifierProvider(
           create: (_) => UserProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => OrderProvider(),
         ),
       ],
       child: const MyApp(),

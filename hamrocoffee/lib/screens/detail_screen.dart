@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hamrocoffee/models/coffee.dart';
+import 'package:hamrocoffee/models/order.dart';
+import 'package:hamrocoffee/services/order_provider.dart';
 import 'package:hamrocoffee/services/user_provider.dart';
 import 'package:provider/src/provider.dart';
 
@@ -17,6 +19,7 @@ class _DetailScreenState extends State<DetailScreen> {
   @override
   Widget build(BuildContext context) {
     final userProvider = context.watch<UserProvider>();
+    final orderProvider = context.watch<OrderProvider>();
 
     return Scaffold(
       appBar: AppBar(
@@ -112,7 +115,22 @@ class _DetailScreenState extends State<DetailScreen> {
                             fontSize: 18,
                           ),
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          final order = Order(
+                            id: '',
+                            coffeeId: widget.coffee.id,
+                            userId: userProvider.currentUser!.id,
+                            size: widget.coffee.sizes[_selectedIndex].name,
+                            price: widget.coffee.sizes[_selectedIndex].price,
+                          );
+                          orderProvider.placeOrder(order);
+
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text('Order placed successfully'),
+                            ),
+                          );
+                        },
                       ),
                     ),
             ],

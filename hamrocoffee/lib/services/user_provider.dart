@@ -24,6 +24,7 @@ class UserProvider extends ChangeNotifier {
 
     final userSnapshot = await userRef.get();
     if (userSnapshot.exists) {
+      print('user logged in');
       currentUser = UserModel.fromSnapshot(userSnapshot);
       notifyListeners();
       return;

@@ -1,19 +1,48 @@
 import 'package:flutter/material.dart';
 import 'package:hamrocoffee/services/coffee_provider.dart';
+import 'package:hamrocoffee/services/order_provider.dart';
+import 'package:hamrocoffee/services/user_provider.dart';
 import 'package:provider/provider.dart';
 
 import 'detail_screen.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     final service = context.watch<CoffeeProvider>();
     final menu = service.menu;
+
+    final orderProvider = context.watch<OrderProvider>();
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Hamro Coffee'),
+        actions: [
+          IconButton(
+            onPressed: () {},
+            icon: Row(
+              children: [
+                const Icon(Icons.shopping_cart),
+                Expanded(
+                  child: Text(
+                    orderProvider.orders.length.toString(),
+                    style: const TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
       body: SafeArea(
         child: ListView.builder(
@@ -75,5 +104,16 @@ class HomeScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    final orderProvider = context.read<OrderProvider>();
+    final userProvider = context.read<UserProvider>();
+    Future.delayed(const Duration(seconds: 2), () {
+      if (userProvider.currentUser == null) return;
+      orderProvider.getUserOrder(userProvider.currentUser!.id);
+    });
   }
 }
