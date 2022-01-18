@@ -1,21 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:hamrocoffee/models/coffee.dart';
-import 'package:hamrocoffee/services/coffee_service.dart';
+import 'package:hamrocoffee/services/coffee_provider.dart';
+import 'package:provider/provider.dart';
 
 import 'detail_screen.dart';
 
-class HomeScreen extends StatefulWidget {
+class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
-  late final menu = <Coffee>[];
-
-  @override
   Widget build(BuildContext context) {
+    final service = context.watch<CoffeeProvider>();
+    final menu = service.menu;
     return Scaffold(
       appBar: AppBar(
         title: const Text('Hamro Coffee'),
@@ -80,19 +75,5 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
     );
-  }
-
-  @override
-  void initState() {
-    _loadMenu();
-    super.initState();
-  }
-
-  void _loadMenu() async {
-    final service = CoffeeService();
-    final _menu = await service.getCoffees();
-    setState(() {
-      menu.addAll(_menu);
-    });
   }
 }
