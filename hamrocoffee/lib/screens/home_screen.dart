@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hamrocoffee/screens/orders_screen.dart';
 import 'package:hamrocoffee/services/coffee_provider.dart';
 import 'package:hamrocoffee/services/order_provider.dart';
 import 'package:hamrocoffee/services/user_provider.dart';
@@ -26,7 +27,13 @@ class _HomeScreenState extends State<HomeScreen> {
         title: const Text('Hamro Coffee'),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => const OrdersScreen(),
+                ),
+              );
+            },
             icon: Row(
               children: [
                 const Icon(Icons.shopping_cart),
