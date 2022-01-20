@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:hamrocoffeeadmin/screens/home_screen.dart';
+
+import 'screens/main_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -24,7 +25,7 @@ class MyApp extends StatelessWidget {
           color: Color(0xff1f3933),
         ),
       ),
-      home: HomeScreen(),
+      home: MainScreen(),
     );
   }
 }
